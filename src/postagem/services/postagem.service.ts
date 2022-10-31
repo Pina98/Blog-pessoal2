@@ -6,6 +6,7 @@ import { Postagem } from "../entities/postagem.entity"
 
 @Injectable()
 export class PostagemService{
+    postagem: any;
     constructor(
         @InjectRepository(Postagem)
         private postagemRepository: Repository <Postagem>,
@@ -15,7 +16,7 @@ export class PostagemService{
     async findAll(): Promise <Postagem[]>{
         return await this.postagemRepository.find({
             relations:{
-                tema: true
+                tema: true,
                 usuario: true
             }
     })
@@ -34,7 +35,7 @@ export class PostagemService{
             }
         });
 
-        if (!postagem)
+        if (!Postagem)
             throw new HttpException ('Postagem não encontrada', HttpStatus.NOT_FOUND);
         return  Postagem;
     }
@@ -56,11 +57,11 @@ export class PostagemService{
 
      async create(Postagem: Postagem): Promise <Postagem> {
         if (this.postagem.tema){
-            let tema = await this.TemaService.findById(postagem.tema.id)
+            let tema = await this.TemaService.findById(Postagem.tema.id)
         if (!tema)
         throw new HttpException('Tema não encontrado', HttpStatus.NOT_FOUND)
         }
-        return await this.postagemRepository.save(postagem);
+        return await this.postagemRepository.save(Postagem);
     }
 
 

@@ -1,7 +1,7 @@
 import { JwtService } from '@nestjs/jwt';
 import { UsuarioLogin } from './../entities/usuariologin.entities';
 import { Bcrypt } from './../bcrypt/bcrypt';
-import { UsuarioService } from './../../usuario/usuario.service';
+import { UsuarioService } from '../../usuario/services/usuario.service';
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 
 
@@ -20,7 +20,7 @@ export class AuthService{
         if (!buscaUsuario)
         throw new HttpException ('Usuario não encontrado!', HttpStatus.NOT_FOUND);
 
-    const match = await this.bcrypt.criptografarSenha(buscaUsuario.senha, password)
+    const match = await this.bcrypt.criptografarSenha(buscaUsuario.senha)
 
     if(buscaUsuario && match){
         const{ senha, ...result} = buscaUsuario;
@@ -34,7 +34,7 @@ export class AuthService{
 
         return{
             usuario: UsuarioLogin.usuario,
-            token: `Bearer ${this.jwtService.sign(playload)}`,
+            token: `Bearer ${this.jwtService.sign(payload)}`,
         };
     }
 }

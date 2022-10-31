@@ -1,17 +1,21 @@
+import { JwtAuthGuard } from './../../auth/guard/jwt-auth.guard';
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, ParseIntPipe, Put, UseGuards } from "@nestjs/common";
-import { Tema } from "../entities/tema.entities";
 import { TemaService } from '../services/tema.services';
-import{ JwtAuthGuard } from "../../auth/guard/jwt-auth.guard";
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
+import { Tema } from '../entities/tema.entities';
 
+
+@ApiTags('Tema')
 @UseGuards(JwtAuthGuard)
 @Controller('/tema')
+@ApiBearerAuth()
     export class TemaController{
-        constructor (private readonly temaservice: TemaService) {}
+        constructor (private readonly temaService: TemaService) {}
 
         @Get()
         @HttpCode (HttpStatus.OK)
         findAll(): Promise < Tema []>{
-            return this.temaservice.findAll();
+            return this.temaService.findAll();
         }
 
         @Get('/id')
