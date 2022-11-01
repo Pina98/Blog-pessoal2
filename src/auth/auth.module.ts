@@ -7,7 +7,8 @@ import { jwtConstante } from './constants/constants';
 import { UsuarioModule } from '../usuario/usuario.module';
 import { Module } from "@nestjs/common";
 import { JwtModule } from '@nestjs/jwt';
-import { PassportModule } from "@nestjs/Passport";
+import { PassportModule } from "@nestjs/passport";
+
 
 @Module({
     imports:[
