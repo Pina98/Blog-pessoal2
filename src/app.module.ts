@@ -9,6 +9,7 @@ import { Usuario } from './usuario/entities/usuario.entities';
 import { UsuarioModule } from './usuario/usuario.module';
 import { AppController } from './app.controller';
 
+
  @Module({
   imports: [
   /*   TypeOrmModule.forRoot({
